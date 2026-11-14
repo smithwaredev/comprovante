@@ -1,114 +1,85 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #eef2f7; /* Cor de fundo mais clara */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  font-family: "Courier New", Courier, monospace, Arial, sans-serif;
+  background-color: #f4f4f4;
   margin: 0;
+  padding: 15px;
+  color: #000;
 }
 
 .comprovante-container {
-  max-width: 600px; /* Mantendo a largura maior */
-  min-height: 500px; /* Aumentando a altura mínima */
-  margin: auto;
-  padding: 20px;
-  border: 2px solid #bbb; /* Tom mais suave */
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  font-family: Arial, sans-serif;
-  background-color: #ffffff; /* Fundo branco */
+  max-width: 500px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.confirmacao {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
+/* Estilo para centralizar e ajustar perfeitamente o logotipo */
+.logo-sicredi {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.logo-sicredi img {
+  width: 150px;
+  height: auto;
+  max-width: 100%;
+  display: inline-block;
 }
 
 h1 {
-  color: black; /* Agora "Pix Enviado" está preto */
-  font-size: 28px;
+  font-size: 20px;
+  text-align: center;
   margin-bottom: 20px;
-  font-weight: bold;
-}
-
-.informacoes {
-  text-align: left;
-  margin-bottom: 30px;
-  font-size: 16px;
+  font-family: Arial, sans-serif; /* Mantém o título principal limpo */
 }
 
 .informacoes p {
-  margin: 8px 0;
-  color: #34495e; /* Cor mais escura */
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+  font-size: 13px;
+  border-bottom: 1px dotted #e0e0e0;
+  padding-bottom: 6px;
 }
 
-.informacoes p span {
-  font-weight: bold;
-  color: #222f3e; /* Texto destacado */
+.informacoes span {
+  color: #555;
 }
 
+.informacoes strong {
+  color: #000;
+  text-align: right;
+}
+
+/* Botão com o verde correto da marca */
 .botao {
-  background-color: #007bff; /* Azul vibrante */
-  color: white;
-  padding: 12px 24px;
-  font-size: 16px;
+  background-color: #78be20 !important;
+  color: #ffffff !important;
   border: none;
-  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+  margin-top: 15px;
+  font-family: Arial, sans-serif;
 }
-
 .botao:hover {
-  background-color: #0056b3; /* Azul mais escuro no hover */
-  transform: scale(1.05);
+  background-color: #65a218 !important;
 }
 
 .comprovante-footer {
-  margin-top: 30px;
-  font-size: 12px;
-  color: #7f8c8d;
-  line-height: 1.6;
+  text-align: center;
+  font-size: 11px;
+  color: #777;
+  margin-top: 25px;
 }
 
 .comprovante-footer a {
-  color: #007bff; /* Link azul vibrante */
+  color: #78be20;
   text-decoration: none;
-}
-
-.comprovante-footer a:hover {
-  text-decoration: underline;
-}
-
-.map-link {
-  color: #007bff;
-  text-decoration: none;
-  display: block;
-  margin-top: 15px;
-}
-
-.map-link:hover {
-  text-decoration: underline;
-}
-
-.location-info {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  font-size: 12px;
-  margin-top: 20px;
-  color: #7f8c8d;
-}
-
-.location-info span {
-  font-weight: bold;
 }
