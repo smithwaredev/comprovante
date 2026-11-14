@@ -1,9 +1,9 @@
 body {
-  font-family: "Courier New", Courier, monospace, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background-color: #f4f4f4;
   margin: 0;
   padding: 15px;
-  color: #000;
+  color: #333;
 }
 
 .comprovante-container {
@@ -31,25 +31,29 @@ h1 {
   font-size: 20px;
   text-align: center;
   margin-bottom: 20px;
-  font-family: Arial, sans-serif; /* Mantém o título principal limpo */
+  color: #111;
 }
 
 .informacoes p {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   margin: 12px 0;
   font-size: 13px;
   border-bottom: 1px dotted #e0e0e0;
-  padding-bottom: 6px;
+  padding-bottom: 8px;
+  gap: 15px;
 }
 
 .informacoes span {
   color: #555;
+  flex-shrink: 0;
 }
 
 .informacoes strong {
-  color: #000;
+  color: #111;
   text-align: right;
+  word-break: break-all;
 }
 
 /* Botão com o verde correto da marca */
@@ -66,7 +70,6 @@ h1 {
   text-align: center;
   display: inline-block;
   margin-top: 15px;
-  font-family: Arial, sans-serif;
 }
 .botao:hover {
   background-color: #65a218 !important;
