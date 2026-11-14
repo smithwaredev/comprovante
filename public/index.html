@@ -7,12 +7,19 @@
   <title>Comprovante de Pix - Sicredi</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Garante que o logotipo nunca fique gigante, ajustando-se perfeitamente ao layout */
     .topo-comprovante img {
       max-width: 120px !important;
       height: auto !important;
       display: block;
       margin: 0 auto 15px auto;
+    }
+    /* Força a quebra do ID da transação para caber perfeitamente no espaço */
+    .id-transacao-container {
+      word-break: break-all;
+      overflow-wrap: break-word;
+      max-width: 220px;
+      text-align: right;
+      font-size: 13px;
     }
   </style>
 </head>
@@ -20,7 +27,6 @@
 <body>
   <div class="comprovante-container">
     <div class="topo-comprovante">
-      <!-- Logotipo com tamanho controlado -->
       <img src="logo.png" alt="Sicredi" class="logo-sicredi" />
       <h2>Pix Enviado - R$ 530,00</h2>
     </div>
@@ -28,7 +34,12 @@
     <div class="informacoes">
       <p><span>Data do Pagamento:</span> <span>Sábado, 14/11/2026</span></p>
       <p><span>Horário:</span> <span>00:16</span></p>
-      <p><span>ID da Transação:</span> <span class="id-transacao">PIXcSqf5BBNLaKrFy1C6kPAj6sexVR2Z</span></p>
+      
+      <!-- ID da Transação ajustado para quebrar dentro do espaço -->
+      <p style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <span>ID da Transação:</span> 
+        <span class="id-transacao-container">PIXcSqf5BBNLaKrFy1C6kPAj6sexVR2Z</span>
+      </p>
       
       <hr style="border: 0; border-top: 1px solid #ddd; margin: 10px 0;">
 
