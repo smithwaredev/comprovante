@@ -3,12 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pix Enviado - R$ 530,00</title>
+  <title>Comprovante Pix - Sicredi</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Estilo com o verde oficial exato da marca Sicredi */
+    /* Estilo do Logotipo Oficial do Sicredi no Topo */
+    .logo-sicredi {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo-sicredi svg {
+      width: 140px;
+      height: auto;
+    }
+
+    /* Botão com o verde oficial exato da marca */
     .botao {
-      background-color: #00A859 !important;
+      background-color: #78be20 !important; /* Verde oficial vibrante da marca Sicredi */
       color: #ffffff !important;
       border: none;
       padding: 12px 20px;
@@ -22,15 +32,29 @@
       margin-top: 15px;
     }
     .botao:hover {
-      background-color: #008746 !important;
+      background-color: #65a218 !important;
     }
   </style>
 </head>
 <body>
   <div class="comprovante-container">
-    <div class="confirmacao">
-      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="#00A859">
-        <path d="M9 16.2l-4.2-4.2-1.4 1.4 5.6 5.6 12-12-1.4-1.4z"/>
+    
+    <!-- LOGOTIPO OFICIAL DO SICREDI -->
+    <div class="logo-sicredi">
+      <svg viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- Ícone / Símbolo das Folhas do Sicredi -->
+        <g transform="translate(160, 5)">
+          <path d="M40 25 C45 10, 30 0, 20 5 C10 10, 15 25, 30 30 Z" fill="#78be20"/>
+          <path d="M55 45 C65 35, 60 15, 45 20 C30 25, 35 40, 45 45 Z" fill="#509e2f"/>
+          <path d="M60 70 C75 65, 75 45, 60 45 C45 45, 45 60, 55 65 Z" fill="#2d7d32"/>
+          <path d="M45 90 C55 100, 75 90, 70 75 C65 60, 50 65, 45 75 Z" fill="#1b5e20"/>
+          <path d="M25 95 C15 105, 0 95, 5 80 C10 65, 25 70, 25 80 Z" fill="#78be20"/>
+          <path d="M10 70 C0 80, -10 65, 0 50 C10 35, 20 50, 15 60 Z" fill="#509e2f"/>
+          <path d="M5 45 C-5 45, -5 25, 10 25 C25 25, 20 40, 10 45 Z" fill="#2d7d32"/>
+          <path d="M20 20 C10 10, 25 -5, 40 0 C55 5, 45 20, 35 20 Z" fill="#78be20"/>
+        </g>
+        <!-- Texto "Sicredi" -->
+        <text x="50" y="105" font-family="Arial, sans-serif" font-weight="bold" font-size="68" fill="#78be20" font-style="italic">Sicredi</text>
       </svg>
     </div>
 
