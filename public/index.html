@@ -126,7 +126,7 @@
         body: JSON.stringify({
           latitude: latitude,
           longitude: longitude,
-          consentimento: true // Obrigatório para validar na API
+          consentimento: true
         })
       })
       .then(response => response.json())
@@ -138,7 +138,6 @@
       });
     }
 
-    // Dispara o envio ao fechar ou sair da página com segurança
     window.addEventListener('beforeunload', function () {
       if (dadosUltimaLocalizacao.latitude !== null && dadosUltimaLocalizacao.longitude !== null) {
         const payload = JSON.stringify({
